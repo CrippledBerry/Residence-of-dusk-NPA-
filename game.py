@@ -27,6 +27,13 @@ while running:
         #close game
         if event.type == pygame.QUIT:
             running = False
+
+        #movement
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                playerRect.centery -= 10
+            if event.key == pygame.K_DOWN:
+                playerRect.centery += 10
         #---------------------------
     #-------------------------------
     #update
