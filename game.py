@@ -7,10 +7,17 @@ import pygame
 pygame.init()
 
 #draw window
-screen = pygame.display.set_mode([750,750])
+screen = pygame.display.set_mode([1000,1000])
 
 #variables
 running = True
+
+#sprites
+#player image
+playerImg = pygame.image.load('assets/sprites/sprite-placeholder.jpeg')
+playerImg.convert()
+playerRect = playerImg.get_rect()
+playerRect.center = 500, 500
 #------------------------------------
 #game loop
 while running:
@@ -28,8 +35,8 @@ while running:
     #colour background
     screen.fill((0,0,0))
 
-    #draw circle
-    pygame.draw.circle(screen, (255,0,255), (350,350), 75)
+    #draw sprites
+    screen.blit(playerImg, playerRect)
 
     #flip the display
     pygame.display.flip()
