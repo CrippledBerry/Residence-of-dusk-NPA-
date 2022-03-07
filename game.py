@@ -1,3 +1,41 @@
-Python 3.9.5 (tags/v3.9.5:0a7dcbd, May  3 2021, 17:27:52) [MSC v.1928 64 bit (AMD64)] on win32
-Type "help", "copyright", "credits" or "license()" for more information.
->>> 
+#residence of dusk (NPA game)
+#7/3/22
+#------------------------------------
+import pygame
+#------------------------------------
+#initialise
+pygame.init()
+
+#draw window
+screen = pygame.display.set_mode([750,750])
+
+#variables
+running = True
+#------------------------------------
+#game loop
+while running:
+    #--------------------------------
+    #input
+    for event in pygame.event.get():
+        #close game
+        if event.type == pygame.QUIT:
+            running = False
+        #---------------------------
+    #-------------------------------
+    #update
+    #-------------------------------
+    #Draw
+    #colour background
+    screen.fill((0,0,0))
+
+    #draw circle
+    pygame.draw.circle(screen, (255,0,255), (350,350), 75)
+
+    #flip the display
+    pygame.display.flip()
+    #--------------------------------
+
+
+#END OF LOOP
+#------------------------------------
+pygame.quit()
