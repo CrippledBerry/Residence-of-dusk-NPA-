@@ -9,7 +9,7 @@ pygame.init()
 screen = pygame.display.set_mode([1200, 800])
 pygame.display.set_caption('RESIDENCE of DUSK')
 
-#variables ---------------------------------
+#variables -------------------------------------
 currentFrame = 0
 startScreen = True
 started = False
@@ -21,6 +21,12 @@ dt = 0
 clock = pygame.time.Clock()
 deathcause = " "
 combo = 0
+
+#mixer
+pygame.mixer.init()
+pygame.mixer.music.load('assets/soundtrack.mp3')
+pygame.mixer.music.play(3)
+collectfruit_sound = pygame.mixer.Sound("assets/score_sound.wav")
 
 #fonts
 basicFont = pygame.font.SysFont(None, 48)
@@ -83,8 +89,9 @@ title = basicFont.render("Resident of Dusk", False, [255, 255, 255], [0, 0, 0])
 screen.blit(title,[100, 730])
 pygame.display.flip()
 
-#game loop -----------------------------------
+#game loop ----------------------------------------------------------
 while running == True:
+    
     fruit_Rect = pygame.Rect(fruit_posx, fruit_posy, 35, 35)
     power_Rect = pygame.Rect(power_posx, power_posy, 25, 25)
 
@@ -143,6 +150,7 @@ while running == True:
     deathinfo = deathinfoFont.render('Cause of Death: ' + deathcause, False, [255, 0, 0], [0, 0, 0])
     restart = deathinfoFont.render('press R to restart | ESC to exit', False, [255, 0, 0], [0, 0, 0])
     if alive == False:
+        pygame.mixer.music.stop()
         screen.fill((0, 0, 0))
         screen.blit(deathmessage,[500, 200])
         screen.blit(scoreDisplay,[550, 300])
@@ -233,6 +241,7 @@ while running == True:
 
         #fruit collision
         if pygame.Rect.colliderect(player_Rect,fruit_Rect):
+            pygame.mixer.Sound.play(collectfruit_sound)
             fruit_posx = random.randint(200, 1000)
             fruit_posy = random.randint(190, 600)
             pygame.draw.rect(screen, [255, 0, 0], fruit_Rect, 0)
