@@ -27,6 +27,8 @@ pygame.mixer.init()
 pygame.mixer.music.load('assets/soundtrack.mp3')
 pygame.mixer.music.play(3)
 collectfruit_sound = pygame.mixer.Sound("assets/score_sound.wav")
+wallhit_sound = pygame.mixer.Sound("assets/hit.wav")
+death_sound = pygame.mixer.Sound("assets/death.wav")
 
 #fonts
 basicFont = pygame.font.SysFont(None, 48)
@@ -229,6 +231,7 @@ while running == True:
             if invuln <= 0:
                 if pygame.Rect.colliderect(player_Rect,chair_Rect):
                     alive = False
+                    pygame.mixer.Sound.play(death_sound)
                     deathcause = "CHAIRED TO DEATH"
 
         #MONSTER COLLISION
@@ -237,6 +240,7 @@ while running == True:
         if invuln <= 0:
                 if pygame.Rect.colliderect(player_Rect,monster_Rect):
                     alive = False
+                    pygame.mixer.Sound.play(death_sound)
                     deathcause = "???????????????????????????????????????????????????????????????????"
 
         #fruit collision
@@ -271,12 +275,15 @@ while running == True:
         if currentpos[0] <= 100 or currentpos[0] >=1080:
             if move_direction == "left":
                 move_direction = "right"
+                pygame.mixer.Sound.play(wallhit_sound)
             else:
                 move_direction = "left"
+                pygame.mixer.Sound.play(wallhit_sound)
 
         if currentpos[1] <= 175 or currentpos[1] >= 600:
             deathcause = "TENTACLE BLENDER SLAP"
             alive = False
+            pygame.mixer.Sound.play(death_sound)
                 
         if keys[pygame.K_w] or keys[pygame.K_UP]:
             currentpos[1] -= (MOVESPEED * 1.6) * frameSec
@@ -292,6 +299,7 @@ while running == True:
             timer = 0
             deathcause = "OUT OF TIME"
             alive = False
+            pygame.mixer.Sound.play(death_sound)
             
     #esc to close game
     if keys[pygame.K_ESCAPE]:
