@@ -11,9 +11,12 @@ pygame.display.set_caption('RESIDENCE of DUSK')
 titleFont = pygame.font.SysFont(None, 84)
 infoFont = pygame.font.SysFont(None, 24)
 
+monster_image = pygame.image.load('assets/monster render.png').convert_alpha()
+
 while running == True:
     screen.fill((0, 0, 0))
     title = titleFont.render("Resident of Dusk", False, [255, 0, 0], [0, 0, 0])
+    screen.blit(monster_image,[600, 400])
     screen.blit(title,[400, 100])
 
     story = infoFont.render("YOU are John Night, a boring man who has lived a boring life. one day however, he came across a", False, [255, 255, 255], [0, 0, 0])
