@@ -49,7 +49,7 @@ monsterActive = False
 monsterDistanceX = 0
 monsterDistanceY = 0
 inRange = False
-patrolpos = [float(600),float(400)]
+patrolpos = [int(600),int(400)]
 
 #sprite images/collision
 player_image = pygame.image.load('assets/john.png').convert_alpha()
@@ -189,10 +189,8 @@ while running == True:
             if monsterpos[1] > patrolpos[1]:
                 monsterpos[1] -= 5
             if monsterpos[0] == patrolpos[0] and monsterpos[1] == patrolpos[1]:
-                if patrolpos[0] == 200 and patrolpos[1] == 400:
-                    patrolpos = [float(200),float(400)]
-                else:
-                    patrolpos = [float(900),float(400)]
+                patrolpos = [random.randint(0,1200),random.randint(0,800)]
+
 
     #frame time ----------------
     frameMs = mainClock.tick(60)
@@ -206,7 +204,7 @@ while running == True:
 
         #chair spawn
         def chairSpawn():
-            if chaircount < 8:
+            if chaircount <= 8:
                 chaircount + 1
                 newChairx = random.randint(200,1000)
                 newChairy = random.randint(200,600)
@@ -245,6 +243,7 @@ while running == True:
 
         #fruit collision
         if pygame.Rect.colliderect(player_Rect,fruit_Rect):
+            patrolpos = [random.randint(0,1200),random.randint(0,800)]
             pygame.mixer.Sound.play(collectfruit_sound)
             fruit_posx = random.randint(200, 1000)
             fruit_posy = random.randint(190, 600)
@@ -253,7 +252,8 @@ while running == True:
             score += 1 * combo
             timer = 10
             invuln += 1.5
-            chairSpawn()
+            if chaircount <= 8:
+                chairSpawn()
             if score >= 10:
                 screen.fill((random.randint(0,230),random.randint(0,255),random.randint(0,255)))
         if pygame.Rect.colliderect(player_Rect,power_Rect):
