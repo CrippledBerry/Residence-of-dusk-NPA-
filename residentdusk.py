@@ -53,6 +53,7 @@ patrolpos = [int(600),int(400)]
 
 #sprite images/collision
 player_image = pygame.image.load('assets/john.png').convert_alpha()
+scary_image = pygame.image.load('assets/scary.png')
 player_Rect = pygame.Rect(currentpos[0], currentpos[1], player_image.get_width(), player_image.get_height())
 
 currentFrame = 0
@@ -305,6 +306,9 @@ while running == True:
     if keys[pygame.K_ESCAPE]:
         running = False
 
+    if keys[pygame.K_o]:
+        screen.blit(scary_image,[200, 100])
+        
     if keys[pygame.K_r]:
         if alive == False:
           os.system('residentdusk.py')
