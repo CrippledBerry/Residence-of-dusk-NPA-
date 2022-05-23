@@ -22,7 +22,7 @@ clock = pygame.time.Clock()
 deathcause = " "
 combo = 0
 
-#mixer
+#audio mixer
 pygame.mixer.init()
 pygame.mixer.music.load('assets/soundtrack.mp3')
 pygame.mixer.music.play(3)
@@ -56,6 +56,7 @@ player_image = pygame.image.load('assets/john.png').convert_alpha()
 scary_image = pygame.image.load('assets/scary.png')
 player_Rect = pygame.Rect(currentpos[0], currentpos[1], player_image.get_width(), player_image.get_height())
 
+#set sprite image names
 currentFrame = 0
 tentacleFrames = [pygame.image.load('assets/tentacle_1.png'),
                   pygame.image.load('assets/tentacle_2.png'),
@@ -65,11 +66,17 @@ tentacleFrames = [pygame.image.load('assets/tentacle_1.png'),
 tentacle_image = tentacleFrames[currentFrame].convert_alpha()
 tentacle_image2 = pygame.transform.rotate(tentacle_image, 180)
 
-monster_image = pygame.image.load('assets/monster.png').convert_alpha()
-monster_Rect = pygame.Rect(currentpos[0], currentpos[1], monster_image.get_width(), monster_image.get_height())
-
 chair_image = pygame.image.load('assets/chair.png').convert_alpha()
 chair_Rect = pygame.Rect(0, 0, chair_image.get_width(), chair_image.get_height())
+
+
+a = random.randint(1,10)
+if a == 1:
+    monster_image = pygame.image.load('assets/scary.png').convert_alpha()
+else:
+    monster_image = pygame.image.load('assets/monster.png').convert_alpha()
+monster_Rect = pygame.Rect(currentpos[0], currentpos[1], monster_image.get_width(), monster_image.get_height())
+
 
 #chair setup
 chairPos_list = []
@@ -234,13 +241,14 @@ while running == True:
                     deathcause = "CHAIRED TO DEATH"
 
         #MONSTER COLLISION
-        monster_Rect.left = monsterpos[0]
-        monster_Rect.top = monsterpos[1]
-        if invuln <= 0:
-                if pygame.Rect.colliderect(player_Rect,monster_Rect):
-                    alive = False
-                    pygame.mixer.Sound.play(death_sound)
-                    deathcause = "???????????????????????????????????????????????????????????????????"
+        if monsterActive == True:
+            monster_Rect.left = monsterpos[0]
+            monster_Rect.top = monsterpos[1]
+            if invuln <= 0:
+                    if pygame.Rect.colliderect(player_Rect,monster_Rect):
+                        alive = False
+                        pygame.mixer.Sound.play(death_sound)
+                        deathcause = "???????????????????????????????????????????????????????????????????"
 
         #fruit collision
         if pygame.Rect.colliderect(player_Rect,fruit_Rect):
@@ -305,9 +313,6 @@ while running == True:
     #esc to close game
     if keys[pygame.K_ESCAPE]:
         running = False
-
-    if keys[pygame.K_o]:
-        screen.blit(scary_image,[200, 100])
         
     if keys[pygame.K_r]:
         if alive == False:
